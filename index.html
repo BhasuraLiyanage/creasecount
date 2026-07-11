@@ -1,88 +1,102 @@
-<div class="smartphone-container">
-  
-  <div id="setup-screen" class="screen">
-    <div class="app-header">
-      <h1>Crease Count</h1>
-    </div>
-    <div class="setup-box">
-      <p>Ready to track a complete match?</p>
-      <button class="btn btn-run" id="start-match-btn">NEW MATCH</button>
-    </div>
-  </div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Crease Count</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
 
-  <div id="match-screen" class="screen hidden">
-    <div class="app-header">
-      <h1 id="innings-title">1st Innings</h1>
-    </div>
-
-    <div class="scoreboard">
-      <div class="score-main">
-        <span id="display-runs">0</span>/<span id="display-wickets">0</span>
+  <div class="smartphone-container">
+    
+    <div id="setup-screen" class="screen">
+      <div class="app-header">
+        <h1>CreaseCount Pro</h1>
       </div>
-      <div class="score-sub">
-        <div>Overs: <span id="display-overs">0.0</span></div>
-        <div id="target-container" class="hidden">Target: <span id="display-target">-</span></div>
+      <div class="setup-box">
+        <p>Ready to track a complete match?</p>
+        <button class="btn btn-run" id="start-match-btn">NEW MATCH</button>
       </div>
     </div>
 
-    <div class="control-grid">
-      <button class="btn btn-num" onclick="handleScoreAction(1, 1)">1</button>
-      <button class="btn btn-num" onclick="handleScoreAction(2, 1)">2</button>
-      <button class="btn btn-num" onclick="handleScoreAction(3, 1)">3</button>
-      <button class="btn btn-num" onclick="handleScoreAction(4, 1)">4</button>
-      <button class="btn btn-num" onclick="handleScoreAction(6, 1)">6</button>
-      <button class="btn btn-wicket" onclick="openRunsModal('out')">Out</button>
-      <button class="btn btn-extra" onclick="openRunsModal('ex')">Ex</button>
-    </div>
+    <div id="match-screen" class="screen hidden">
+      <div class="app-header">
+        <h1 id="innings-title">1st Innings</h1>
+      </div>
 
-    <div class="system-grid">
-      <button class="btn btn-sys" id="complete-btn">Complete</button>
-      <button class="btn btn-sys" id="undo-btn">Undo</button>
-      <button class="btn btn-sys" id="reset-btn">Reset</button>
-      <button class="btn btn-sys" id="overs-view-btn">Overs</button>
-    </div>
-
-    <div class="footer-zone">
-      
-      <div class="support-widget" id="support-trigger">
-        <span class="support-icon">☕</span>
-        <div class="support-text-wrapper">
-          <p class="support-title">Fuel the Developer</p>
-          <p class="support-subtitle">Buy Bhasura a coffee to keep updates free!</p>
+      <div class="scoreboard">
+        <div class="score-main">
+          <span id="display-runs">0</span>/<span id="display-wickets">0</span>
+        </div>
+        <div class="score-sub">
+          <div>Overs: <span id="display-overs">0.0</span></div>
+          <div id="target-container" class="hidden">Target: <span id="display-target">-</span></div>
         </div>
       </div>
 
-      <p class="creator-tag">Created by Bhasura Liyanage</p>
-      
-      <div class="ad-banner" id="ad-space">
-        <span class="ad-placeholder-text">Advertisement Banner Area</span>
+      <div class="control-grid">
+        <button class="btn btn-num" onclick="handleScoreAction(1, 1)">1</button>
+        <button class="btn btn-num" onclick="handleScoreAction(2, 1)">2</button>
+        <button class="btn btn-num" onclick="handleScoreAction(3, 1)">3</button>
+        <button class="btn btn-num" onclick="handleScoreAction(4, 1)">4</button>
+        <button class="btn btn-num" onclick="handleScoreAction(6, 1)">6</button>
+        <button class="btn btn-wicket" onclick="openRunsModal('out')">Out</button>
+        <button class="btn btn-extra" onclick="openRunsModal('ex')">Ex</button>
+      </div>
+
+      <div class="system-grid">
+        <button class="btn btn-sys" id="complete-btn">Complete</button>
+        <button class="btn btn-sys" id="undo-btn">Undo</button>
+        <button class="btn btn-sys" id="reset-btn">Reset</button>
+        <button class="btn btn-sys" id="overs-view-btn">Overs</button>
+      </div>
+
+      <div class="footer-zone">
+        
+        <div class="support-widget" id="support-trigger">
+          <span class="support-icon">☕</span>
+          <div class="support-text-wrapper">
+            <p class="support-title">Fuel the Developer</p>
+            <p class="support-subtitle">Buy Bhasura a coffee to keep updates free!</p>
+          </div>
+        </div>
+
+        <p class="creator-tag">Created by Bhasura Liyanage</p>
+        
+        <div class="ad-banner" id="ad-space">
+          <span class="ad-placeholder-text">Advertisement Banner Area</span>
+        </div>
       </div>
     </div>
-  </div>
 
-  <div id="runs-modal" class="modal hidden">
-    <div class="modal-content">
-      <h3>Runs?</h3>
-      <div id="modal-desc" style="font-size:0.85rem; color:#94a3b8; margin-bottom:12px;"></div>
-      <div class="runs-options">
-        <button onclick="submitModalRuns(0)" id="zero-run-opt" class="btn btn-sys">0</button>
-        <button onclick="submitModalRuns(1)" class="btn btn-sys">1</button>
-        <button onclick="submitModalRuns(2)" class="btn btn-sys">2</button>
-        <button onclick="submitModalRuns(3)" class="btn btn-sys">3</button>
-        <button onclick="submitModalRuns(4)" class="btn btn-sys">4</button>
-        <button onclick="submitModalRuns(5)" class="btn btn-sys">5</button>
-        <button onclick="submitModalRuns(6)" class="btn btn-sys">6</button>
-        <button onclick="submitModalRuns(7)" class="btn btn-sys">7</button>
+    <div id="runs-modal" class="modal hidden">
+      <div class="modal-content">
+        <h3>Runs?</h3>
+        <div id="modal-desc" style="font-size:0.85rem; color:#94a3b8; margin-bottom:12px;"></div>
+        <div class="runs-options">
+          <button onclick="submitModalRuns(0)" id="zero-run-opt" class="btn btn-sys">0</button>
+          <button onclick="submitModalRuns(1)" class="btn btn-sys">1</button>
+          <button onclick="submitModalRuns(2)" class="btn btn-sys">2</button>
+          <button onclick="submitModalRuns(3)" class="btn btn-sys">3</button>
+          <button onclick="submitModalRuns(4)" class="btn btn-sys">4</button>
+          <button onclick="submitModalRuns(5)" class="btn btn-sys">5</button>
+          <button onclick="submitModalRuns(6)" class="btn btn-sys">6</button>
+          <button onclick="submitModalRuns(7)" class="btn btn-sys">7</button>
+        </div>
       </div>
     </div>
-  </div>
 
-  <div id="overs-modal" class="modal hidden">
-    <div class="modal-content log-content">
-      <h3>Innings Ball Log</h3>
-      <div id="overs-log-container"></div>
-      <button class="btn btn-wicket" style="margin-top:16px;" id="close-overs-btn">Close</button>
+    <div id="overs-modal" class="modal hidden">
+      <div class="modal-content log-content">
+        <h3>Innings Ball Log</h3>
+        <div id="overs-log-container"></div>
+        <button class="btn btn-wicket" style="margin-top:16px;" id="close-overs-btn">Close</button>
+      </div>
     </div>
+
   </div>
 
-</div>
+  <script src="script.js"></script>
+</body>
+</html>
