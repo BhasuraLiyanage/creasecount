@@ -53,7 +53,6 @@ function submitModalRuns(runsSelected) {
   
   if (pendingActionType === 'out') {
     captureState();
-    // Update both components: register the running/boundary runs and the wicket
     matchState[inn].runs += runsSelected;
     matchState[inn].wickets = Math.min(10, matchState[inn].wickets + 1);
     matchState[inn].totalBalls += 1;
