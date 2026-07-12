@@ -3,16 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Crease Count</title>
+  <title>CreaseCount Pro</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
   <div class="smartphone-container">
     
+    <!-- SCREEN 1: START / SETUP -->
     <div id="setup-screen" class="screen">
       <div class="app-header">
-        <h1>Crease Count</h1>
+        <h1>CreaseCount Pro</h1>
       </div>
       <div class="setup-box">
         <p>Ready to track a complete match?</p>
@@ -20,6 +21,7 @@
       </div>
     </div>
 
+    <!-- SCREEN 2: THE MAIN SCOREBOARD -->
     <div id="match-screen" class="screen hidden">
       <div class="app-header">
         <h1 id="innings-title">1st Innings</h1>
@@ -35,16 +37,22 @@
         </div>
       </div>
 
+      <!-- Scoring Control Buttons (Updated Grid Layout) -->
       <div class="control-grid">
+        <!-- Row 1 -->
+        <button class="btn btn-dot" onclick="handleScoreAction(0, 1, '•')">Dot</button>
         <button class="btn btn-num" onclick="handleScoreAction(1, 1)">1</button>
         <button class="btn btn-num" onclick="handleScoreAction(2, 1)">2</button>
         <button class="btn btn-num" onclick="handleScoreAction(3, 1)">3</button>
+        
+        <!-- Row 2 -->
         <button class="btn btn-num" onclick="handleScoreAction(4, 1)">4</button>
         <button class="btn btn-num" onclick="handleScoreAction(6, 1)">6</button>
         <button class="btn btn-wicket" onclick="openRunsModal('out')">Out</button>
         <button class="btn btn-extra" onclick="openRunsModal('ex')">Ex</button>
       </div>
 
+      <!-- System Control Buttons -->
       <div class="system-grid">
         <button class="btn btn-sys" id="complete-btn">Complete</button>
         <button class="btn btn-sys" id="undo-btn">Undo</button>
@@ -52,8 +60,10 @@
         <button class="btn btn-sys" id="overs-view-btn">Overs</button>
       </div>
 
+      <!-- Interactive Monetization & Branding Zone -->
       <div class="footer-zone">
         
+        <!-- Support the Developer Interaction Widget -->
         <div class="support-widget" id="support-trigger">
           <span class="support-icon">☕</span>
           <div class="support-text-wrapper">
@@ -64,12 +74,14 @@
 
         <p class="creator-tag">Created by Bhasura Liyanage</p>
         
+        <!-- Non-Intrusive Banner Ad placeholder -->
         <div class="ad-banner" id="ad-space">
           <span class="ad-placeholder-text">Advertisement Banner Area</span>
         </div>
       </div>
     </div>
 
+    <!-- DYNAMIC MODAL 1: "RUNS?" POPUP (For Out & Extra) -->
     <div id="runs-modal" class="modal hidden">
       <div class="modal-content">
         <h3>Runs?</h3>
@@ -87,6 +99,7 @@
       </div>
     </div>
 
+    <!-- DYNAMIC MODAL 2: OVER-BY-OVER LOG SHEET -->
     <div id="overs-modal" class="modal hidden">
       <div class="modal-content log-content">
         <h3>Innings Ball Log</h3>
