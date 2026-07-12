@@ -38,10 +38,13 @@ body {
   font-size: 0.95rem; font-weight: 600; color: #94a3b8;
 }
 
+/* Symmetrical grid layout: 2 clean rows of 4 buttons each */
 .control-grid {
-  display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 12px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-bottom: 12px;
 }
-.control-grid button:nth-child(5) { grid-column: span 2; }
 
 .system-grid {
   display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 12px;
@@ -54,14 +57,17 @@ body {
 }
 .btn:active { transform: scale(0.96); }
 
+/* Button Color Theme Variants */
+.btn-dot { background-color: #475569; color: #f8fafc; border: 1px solid #64748b; }
+.btn-dot:hover { background-color: #334155; }
 .btn-num { background-color: #0284c7; color: white; }
 .btn-num:hover { background-color: #0369a1; }
 .btn-wicket { background-color: #dc2626; color: white; }
 .btn-wicket:hover { background-color: #b91c1c; }
 .btn-extra { background-color: #d97706; color: white; }
 .btn-extra:hover { background-color: #b45309; }
-.btn-sys { background-color: #475569; color: white; }
-.btn-sys:hover { background-color: #334155; }
+.btn-sys { background-color: #334155; color: white; border: 1px solid #475569; }
+.btn-sys:hover { background-color: #1e293b; }
 
 /* Interactive Support Widget Layout */
 .support-widget {
