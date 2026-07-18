@@ -13,6 +13,28 @@ const runsModal = document.getElementById("runs-modal");
 const oversModal = document.getElementById("overs-modal");
 const oversLogContainer = document.getElementById("overs-log-container");
 
+// NEW: Save the entire match state to the browser's permanent memory
+function saveToLocalStorage() {
+  localStorage.setItem("creasecount_matchState", JSON.stringify(matchState));
+  localStorage.setItem("creasecount_actionHistory", JSON.stringify(actionHistory));
+}
+
+// NEW: Load the match state if it exists when the page opens
+function loadFromLocalStorage() {
+  const savedState = localStorage.getItem("creasecount_matchState");
+  const savedHistory = localStorage.getItem("creasecount_actionHistory");
+  
+  if (savedState) {
+    matchState = JSON.parse(savedState);
+    actionHistory = savedHistory ? JSON.parse(savedHistory) : [];
+    
+    // Skip the setup screen and show the live match dashboard
+    setupScreen.classList.add("hidden");
+    matchScreen.classList.remove("hidden");
+    renderScoreboard();
+  }
+}
+
 function captureState() {
   actionHistory.push(JSON.parse(JSON.stringify(matchState)));
 }
@@ -22,6 +44,7 @@ document.getElementById("start-match-btn").addEventListener("click", () => {
   setupScreen.classList.add("hidden");
   matchScreen.classList.remove("hidden");
   renderScoreboard();
+  saveToLocalStorage(); // Save initial state
 });
 
 function handleScoreAction(runsToAdd, ballsCounted, specialLabel = null) {
@@ -31,6 +54,7 @@ function handleScoreAction(runsToAdd, ballsCounted, specialLabel = null) {
   matchState[inn].totalBalls += ballsCounted;
   matchState[inn].ballHistory.push({ runs: runsToAdd, ballsCounted: ballsCounted, label: specialLabel });
   renderScoreboard();
+  saveToLocalStorage(); // Save every time a run or ball changes
 }
 
 function openRunsModal(type) {
@@ -65,6 +89,7 @@ function submitModalRuns(runsSelected) {
     handleScoreAction(runsSelected, 0, `E${runsSelected}`);
   }
   renderScoreboard();
+  saveToLocalStorage(); // Save the modal action results
 }
 
 function formatOvers(balls) {
@@ -93,6 +118,7 @@ document.getElementById("complete-btn").addEventListener("click", () => {
     matchState.target = matchState[1].runs + 1;
     matchState.currentInnings = 2;
     renderScoreboard();
+    saveToLocalStorage(); // Save active innings transition
   }
 });
 
@@ -100,10 +126,15 @@ document.getElementById("undo-btn").addEventListener("click", () => {
   if (actionHistory.length > 0) {
     matchState = actionHistory.pop();
     renderScoreboard();
+    saveToLocalStorage(); // Update storage after an undo
   }
 });
 
 document.getElementById("reset-btn").addEventListener("click", () => {
+  // Clear the memory completely when resetting for a new match
+  localStorage.removeItem("creasecount_matchState");
+  localStorage.removeItem("creasecount_actionHistory");
+  
   actionHistory = [];
   matchState = {
     currentInnings: 1,
@@ -145,5 +176,8 @@ document.getElementById("close-overs-btn").addEventListener("click", () => {
 });
 
 document.getElementById("support-trigger").addEventListener("click", () => {
-  window.open("https://ko-fi.com/your_username_here", "_blank");
+  window.open("https://www.paypal.com/requestpayment/bhasuraliyanage1@gmail.com", "_blank");
 });
+
+// NEW: Automatically run the loader check whenever the page finishes rendering
+loadFromLocalStorage();
