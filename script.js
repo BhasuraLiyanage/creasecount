@@ -13,13 +13,13 @@ const runsModal = document.getElementById("runs-modal");
 const oversModal = document.getElementById("overs-modal");
 const oversLogContainer = document.getElementById("overs-log-container");
 
-// NEW: Save the entire match state to the browser's permanent memory
+// Save the entire match state to the browser's permanent memory
 function saveToLocalStorage() {
   localStorage.setItem("creasecount_matchState", JSON.stringify(matchState));
   localStorage.setItem("creasecount_actionHistory", JSON.stringify(actionHistory));
 }
 
-// NEW: Load the match state if it exists when the page opens
+// Robust Loader Check that updates UI states explicitly
 function loadFromLocalStorage() {
   const savedState = localStorage.getItem("creasecount_matchState");
   const savedHistory = localStorage.getItem("creasecount_actionHistory");
@@ -28,10 +28,16 @@ function loadFromLocalStorage() {
     matchState = JSON.parse(savedState);
     actionHistory = savedHistory ? JSON.parse(savedHistory) : [];
     
-    // Skip the setup screen and show the live match dashboard
+    // Explicitly toggle classes to force UI updates
     setupScreen.classList.add("hidden");
     matchScreen.classList.remove("hidden");
+    
+    // Refresh the numbers on the display board
     renderScoreboard();
+  } else {
+    // If no match is in progress, make sure setup screen is visible
+    setupScreen.classList.remove("hidden");
+    matchScreen.classList.add("hidden");
   }
 }
 
@@ -131,6 +137,13 @@ document.getElementById("undo-btn").addEventListener("click", () => {
 });
 
 document.getElementById("reset-btn").addEventListener("click", () => {
+  // Add a confirmation dialog to prevent accidental resets
+  const confirmReset = confirm("Are you sure you want to reset the match? All current scoring data will be permanently lost.");
+  
+  if (!confirmReset) {
+    return; // Stop here if the user clicks 'Cancel'
+  }
+
   // Clear the memory completely when resetting for a new match
   localStorage.removeItem("creasecount_matchState");
   localStorage.removeItem("creasecount_actionHistory");
@@ -179,5 +192,7 @@ document.getElementById("support-trigger").addEventListener("click", () => {
   window.open("https://www.paypal.com/requestpayment/bhasuraliyanage1@gmail.com", "_blank");
 });
 
-// NEW: Automatically run the loader check whenever the page finishes rendering
-loadFromLocalStorage();
+// Safely execute the script only after the DOM structure is completely rendered
+document.addEventListener("DOMContentLoaded", () => {
+  loadFromLocalStorage();
+});
